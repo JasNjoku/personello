@@ -1,8 +1,12 @@
-function IndividualBoard() {
-    return (
-        <div className="board">
+import { Link } from "react-router-dom";
 
-        </div>
+function IndividualBoard(props) {
+    return (
+        <Link key={props.board.name} to={`boards/${props.board.name}`}>
+            <div className={props.board.background}>
+                {props.board.name}
+            </div>
+        </Link>
     )
 }
 

@@ -5,12 +5,46 @@
 }
 
 :root {
---main-color: rgb(25, 134, 212);
+  --main-color: rgb(25, 134, 212);
+}
+
+.gradeGrey {
+  background: #bdc3c7;
+  background: -webkit-linear-gradient(to bottom, #2c3e50, #bdc3c7);
+  background: linear-gradient(to bottom, #2c3e50, #bdc3c7);
+}
+
+.piggyPink {
+  background: #ee9ca7;
+  background: -webkit-linear-gradient(to bottom, #ffdde1, #ee9ca7);
+  background: linear-gradient(to bottom, #ffdde1, #ee9ca7);
+}
+
+.coolBlues {
+  background: #2193b0;
+  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to bottom, #6dd5ed, #2193b0);
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to bottom, #6dd5ed, #2193b0);
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.harvey {
+  background: #1f4037;
+  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to bottom, #99f2c8, #1f4037);
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to bottom, #99f2c8, #1f4037);
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
 }
 
 .homepage {
   max-width: 100vw;
-  min-height: 100vh;
+  max-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 .homepage-nav {
@@ -21,7 +55,7 @@
   padding: 6px 5px;
 }
 
-.homepage-nav > div {
+.homepage-nav>div {
   flex-basis: 50%;
 }
 
@@ -40,7 +74,7 @@
 .homepage-nav__left button {
   padding: 8px 8px;
   border-radius: 2px;
-  background-color:rgb(51, 83, 144);
+  background-color: rgb(51, 83, 144);
   color: white;
   border: none;
   cursor: pointer;
@@ -80,4 +114,148 @@
   color: black;
 }
 
+.homepage-body {
+  max-width: 100vw;
+  display: flex;
+}
 
+.homepage-body__side {
+  flex-basis: 30%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.side-content {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 50%;
+}
+
+.side-content {
+  padding: 5px 5px;
+  margin-top: 20px;
+}
+
+.side-content a {
+  text-decoration: none;
+  margin: 8px 0;
+  border-radius: 4px;
+  padding: 5px;
+  color: black;
+  font-weight: 900;
+}
+
+.side-content a:hover {
+  background-color: rgba(196, 198, 201, 0.541);
+}
+
+.homepage-body__content {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow-y: scroll;
+  flex-basis: 70%;
+  padding-right: 50px;
+}
+
+.homepage-body__content>div {
+  width: 100%;
+  margin: 40px 0 0 0;
+  /* background-color: blue; */
+}
+
+.homepage-body__content>div h3 {
+  display: flex;
+  align-items: center;
+  padding-top: 2px;
+  padding-left: 5px;
+}
+
+
+.boards-content {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 20px 0;
+}
+
+.boards-content a {
+  text-decoration: none;
+  color: white;
+  font-size: 1.3em;
+  font-weight: 900;
+  margin: 5px 5px;
+  position: relative;
+}
+
+.boards-content a:hover {
+  opacity: 0.8;
+}
+
+.boards-content div {
+  height: 80px;
+  width: 180px;
+  border-radius: 4px;
+  padding: 10px 8px;
+
+}
+
+.create-board {
+  background-color: rgb(237, 237, 237);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 5px 5px;
+  cursor: pointer;
+}
+
+.create-board:hover {
+  background-color: lightgray;
+}
+
+.create-modal {
+  position: fixed;
+  right: 43%;
+  height: 85%;
+  width: 250px;
+  margin: 10px 0;
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(0px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  display: flex;
+  flex-direction: column;
+}
+
+.create-modal header {
+  text-align: center;
+  padding: 5px 0;
+  border-bottom: 0.1px solid lightgrey;
+}
+
+.preview {
+  width: 150px;
+  height: 100px;
+  position: relative;
+  margin: 10px auto;
+  border-radius: 3px;
+  box-shadow: 0 3px 8px 0 rgba(31, 38, 135, 0.37);
+}
+
+.backgrounds-colours {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.backgrounds>div div {
+  cursor: pointer;
+  margin: 0px 5px;
+  width: 35px;
+  height: 28px;
+  border-radius: 3px;
+}
+
+.backgrounds>div div:hover {
+  opacity: 0.8;
+}
