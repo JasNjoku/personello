@@ -9,8 +9,36 @@ function Boards() {
         JSON.parse(localStorage.getItem('boards')).map(board => {
             if(board.name === id) {
                 setBoard(board)
-                //check if recents already has the board!!, max recents 4. push new recent, pop last recent!
-                localStorage.setItem('recents', `[${JSON.stringify(board)}]`)
+                if(localStorage.recents === undefined || localStorage.getItem('recents') === '' || localStorage.getItem('recents') === '[]') {
+                    localStorage.setItem('recents', `[${JSON.stringify(board)}]`)
+                } 
+                else {  
+                    let alreadyInRecents = false;
+                    if(alreadyInRecents === false) {
+                        JSON.parse(localStorage.getItem('recents')).map((b, index) => {
+                        if(b.name.toLowerCase() === board.name.toLowerCase()) {
+                            const temp = JSON.parse(localStorage.getItem('recents'));
+                            temp.splice(index, 1)
+                            temp.unshift(b)
+                            localStorage.setItem('recents', `${JSON.stringify(temp)}`)
+                            alreadyInRecents = true;
+                        }
+                    })
+                    } 
+
+                    if(JSON.parse(localStorage.getItem('recents')).length < 6 && alreadyInRecents === false) {
+                        const temp = JSON.parse(localStorage.getItem('recents'));
+                        temp.unshift(board)
+                        localStorage.setItem('recents', `${JSON.stringify(temp)}`)
+                    } 
+
+                    if(JSON.parse(localStorage.getItem('recents')).length === 6) {
+                        const temp = JSON.parse(localStorage.getItem('recents'));
+                        temp.pop();
+                        localStorage.setItem('recents', `${JSON.stringify(temp)}`)
+                    }
+
+                }
             }
         }) 
     }, [id])

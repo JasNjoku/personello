@@ -18,7 +18,7 @@ function Home() {
             return JSON.parse(localStorage.getItem('favourites'))
         }
     });
-    const [recents, setRecents] = useState(() => {
+    const [recents] = useState(() => {
         if (localStorage.recents === undefined || localStorage.recents === '' || localStorage.recents === '[]') {
             return [];
         } else {
@@ -42,13 +42,19 @@ function Home() {
 
     })
 
-    useEffect(() => {
-        if(boardName.length < 3) {
-            setCanCreate(false)
-        } else {
-            setCanCreate(true)
-        }
-    }, [boardName, boardBackground])
+    //CLOSE MODAL LOGIC//]
+    // document.addEventListener('click', (e) => {
+    //     if (e.target !== document.querySelector('.create-board')) {
+    //         if (e.target !== document.querySelector('.create-modal')) {
+    //             // setCreateModal(false);
+    //             console.log('not modal')
+    //         } else {
+    //             document.querySelector('.create-modal').childNodes.forEach((child) => {
+    //                 if(child === )
+    //             })
+    //         }
+    //     }
+    // })
 
 
     const gradients = [
@@ -64,9 +70,35 @@ function Home() {
         setBoardBackground(e.target.className);
     }
 
+    const boardExists = (arr, name) => {
+        let exists = false;
+
+        arr.forEach(board => {
+            if (board.name.toLowerCase() === name.toLowerCase()) {
+                exists = true;
+            }
+        });
+
+        return exists;
+    }
+
     const setBoardTitle = (e) => {
-        //check if board name already exists
-        setBoardName(e.target.value)
+        const { value } = e.target;
+        if (value.length < 3) {
+            setCanCreate(false)
+            return;
+        } else {
+            if (boards.length >= 1) {
+                if (boardExists(boards, value)) {
+                    setCanCreate(false)
+                    return;
+                }
+            }
+        }
+
+        setBoardName(value);
+        setCanCreate(true);
+
     }
 
     const showModal = () => {
