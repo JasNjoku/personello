@@ -46,7 +46,7 @@ function Boards() {
     }, [id])
 
     return (
-        <div className={board.background}>
+        <div className={`board-container ${board.background}`}>
             <h1>
                 I am a board number {id}
             </h1>

@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, Navigate as Redirect } from "react-router-dom";
-import IndividualBoard from "../Components/Board";
-import { AiOutlineStar } from 'react-icons/ai'
+import IndividualBoard from "../Components/IndividualBoard";
 
 function Home() {
 
@@ -32,13 +31,14 @@ function Home() {
     const [createModal, setCreateModal] = useState(false);
     const [canCreate, setCanCreate] = useState(false);
     const [redirect, setRedirect] = useState(false);
+    const [rerender, setreRender] = useState(false)
 
 
     useEffect(() => {
         if (localStorage.boards === undefined || localStorage.favourites === undefined || localStorage.recents === undefined) {
-            localStorage.setItem('boards', '')
-            localStorage.setItem('favourites', '')
-            localStorage.setItem('recents', '')
+            localStorage.setItem('boards', '[]')
+            localStorage.setItem('favourites', '[]')
+            localStorage.setItem('recents', '[]')
         }
 
     })
@@ -72,7 +72,7 @@ function Home() {
     }
 
     const boardExists = (arr, name) => {
-        if (arr.find((board) => {return board.name.toLowerCase() === name.toLowerCase()})) {
+        if (arr.find((board) => { return board.name.toLowerCase() === name.toLowerCase() })) {
             return true
         }
     }
@@ -100,21 +100,27 @@ function Home() {
         setCreateModal(true)
     }
 
-    // const shouldSpliceFavourite = (arr, name) =>{
-    //     let x = {splice: false, index: 0};
-    //     arr.forEach((board, index) => {
-    //         if(board.name.toLowerCase() === name.toLowerCase()) {
-    //             x.splice = true;
-    //             x.index = index;
-    //         }
-    //     })
-
-    //     return x;
-    // }
 
     const addToFavourites = (e) => {
         const { value } = e.currentTarget;
+        const faves = JSON.parse(localStorage.getItem('favourites'));
+        let canPush = true;
+        faves.forEach((element, index) => {
+            if (element.name.toLowerCase() === value.toLowerCase()) {
+                canPush = false;
+                faves.splice(index, 1);
+                localStorage.setItem('favourites', `${JSON.stringify(faves)}`)
+                setreRender(false)
+            }
+        });
+        if (canPush) {
+            const currentBoard = boards.find(board => board.name.toLowerCase() === value.toLowerCase());
+            faves.push(currentBoard)
+            localStorage.setItem('favourites', `${JSON.stringify(faves)}`)
+            setreRender(true)
+        }
 
+        setFavourites(faves)
     }
 
     const createBoard = () => {
@@ -160,22 +166,25 @@ function Home() {
                     </div>
                 </div>
                 <div className="homepage-body__content">
-                    {/* <div className="starred-boards">
-                        <h3>Starred boards</h3>
-                        <div className="boards-content">
-                            {boards.map((board) => <IndividualBoard key={board.name} board={board} />)}
-                        </div>
-                    </div> */}
+                    {
+                        favourites.length > 0 ? <div className="starred-boards">
+                            <h3>Starred boards</h3>
+                            <div className="boards-content">
+                                {favourites.map((board) => <IndividualBoard add={addToFavourites} key={board.name} board={board} rerender={rerender}/>)}
+                            </div>
+                        </div> : null
+                    }
+
                     <div className="recent-boards">
                         <h3>Recently viewed</h3>
                         <div className="boards-content">
-                            {recents.map((board) => <IndividualBoard add={addToFavourites} key={board.name} board={board} />)}
+                            {recents.map((board) => <IndividualBoard add={addToFavourites} key={board.name} board={board} rerender={rerender}/>)}
                         </div>
                     </div>
                     <div className="boards">
                         <h3>Your boards</h3>
                         <div className="boards-content">
-                            {boards.map((board) => <IndividualBoard add={addToFavourites} key={board.name} board={board} />)}
+                            {boards.map((board) => <IndividualBoard add={addToFavourites} key={board.name} board={board} rerender={rerender}/>)}
                             <div className="create-board" onClick={showModal}>
                                 Create new board
                             </div>
@@ -190,8 +199,8 @@ function Home() {
                     <div className="backgrounds">
                         Background
                         <div className="backgrounds-colours">
-                            {Object.keys(gradients[0]).map((key, index) =>
-                                <div key={index} className={gradients[0][key].className} onClick={setBoardColor}>
+                            {Object.keys(gradients[0]).map((key) =>
+                                <div key={gradients[0][key].className} className={gradients[0][key].className} onClick={setBoardColor}>
 
                                 </div>
                             )}

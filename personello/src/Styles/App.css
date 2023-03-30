@@ -164,6 +164,7 @@ body {
   overflow-y: scroll;
   flex-basis: 70%;
   padding-right: 50px;
+  padding-bottom: 50px;
 }
 
 .homepage-body__content>div {
@@ -211,16 +212,39 @@ body {
 
 }
 
+.individual-board {
+  overflow: hidden;
+}
+
+.individual-board:hover .outline-star {
+  right: 5px;
+}
+
 .outline-star {
   background-color: transparent;
   border: none;
-  color: gold;
-  font-size: 1.2em;
+  color: white;
+  font-size: 1.1em;
   position: absolute;
   bottom: 5px;
-  right: 5px;
+  right: -50px;
   cursor: pointer;
+  transition: 0.2s ease-in;
 }
+
+.starred-star {
+  color: gold !important;
+  right: 5px !important;
+  transition: none !important;
+}
+
+
+.starred-star > svg:hover{
+  fill: transparent;
+  stroke-width: 90;
+}
+
+
 
 .outline-star:hover {
   bottom: 6px;
@@ -288,4 +312,8 @@ body {
 
 .backgrounds>div div:hover {
   opacity: 0.8;
+}
+
+.board-container {
+  min-height: 100vh;
 }
