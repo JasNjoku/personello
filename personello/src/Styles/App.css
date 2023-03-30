@@ -205,9 +205,9 @@ body {
 }
 
 .boards-content div div{
-  height: 80px;
+  height: 90px;
   width: 180px;
-  border-radius: 4px;
+  border-radius: 2px;
   padding: 10px 8px;
 
 }
@@ -251,9 +251,9 @@ body {
 }
 
 .create-board {
-  height: 80px;
+  height: 90px;
   width: 180px;
-  border-radius: 4px;
+  border-radius: 2px;
   padding: 10px 8px;
   background-color: rgb(237, 237, 237);
   display: flex;
