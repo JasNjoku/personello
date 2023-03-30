@@ -5,8 +5,10 @@ function Boards() {
     const [board, setBoard] = useState({})
     const { id } = useParams();
 
+    
+
     useEffect(() => {
-        JSON.parse(localStorage.getItem('boards')).map(board => {
+        JSON.parse(localStorage.getItem('boards')).forEach(board => {
             if(board.name === id) {
                 setBoard(board)
                 if(localStorage.recents === undefined || localStorage.getItem('recents') === '' || localStorage.getItem('recents') === '[]') {
@@ -15,7 +17,7 @@ function Boards() {
                 else {  
                     let alreadyInRecents = false;
                     if(alreadyInRecents === false) {
-                        JSON.parse(localStorage.getItem('recents')).map((b, index) => {
+                        JSON.parse(localStorage.getItem('recents')).forEach((b, index) => {
                         if(b.name.toLowerCase() === board.name.toLowerCase()) {
                             const temp = JSON.parse(localStorage.getItem('recents'));
                             temp.splice(index, 1)

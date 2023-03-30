@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, Navigate as Redirect } from "react-router-dom";
 import IndividualBoard from "../Components/Board";
+import { AiOutlineStar } from 'react-icons/ai'
 
 function Home() {
 
@@ -71,15 +72,9 @@ function Home() {
     }
 
     const boardExists = (arr, name) => {
-        let exists = false;
-
-        arr.forEach(board => {
-            if (board.name.toLowerCase() === name.toLowerCase()) {
-                exists = true;
-            }
-        });
-
-        return exists;
+        if (arr.find((board) => {return board.name.toLowerCase() === name.toLowerCase()})) {
+            return true
+        }
     }
 
     const setBoardTitle = (e) => {
@@ -105,6 +100,22 @@ function Home() {
         setCreateModal(true)
     }
 
+    // const shouldSpliceFavourite = (arr, name) =>{
+    //     let x = {splice: false, index: 0};
+    //     arr.forEach((board, index) => {
+    //         if(board.name.toLowerCase() === name.toLowerCase()) {
+    //             x.splice = true;
+    //             x.index = index;
+    //         }
+    //     })
+
+    //     return x;
+    // }
+
+    const addToFavourites = (e) => {
+        const { value } = e.currentTarget;
+
+    }
 
     const createBoard = () => {
 
@@ -158,13 +169,13 @@ function Home() {
                     <div className="recent-boards">
                         <h3>Recently viewed</h3>
                         <div className="boards-content">
-                            {recents.map((board) => <IndividualBoard key={board.name} board={board} />)}
+                            {recents.map((board) => <IndividualBoard add={addToFavourites} key={board.name} board={board} />)}
                         </div>
                     </div>
                     <div className="boards">
                         <h3>Your boards</h3>
                         <div className="boards-content">
-                            {boards.map((board) => <IndividualBoard key={board.name} board={board} />)}
+                            {boards.map((board) => <IndividualBoard add={addToFavourites} key={board.name} board={board} />)}
                             <div className="create-board" onClick={showModal}>
                                 Create new board
                             </div>

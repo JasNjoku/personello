@@ -186,20 +186,24 @@ body {
   margin: 20px 0;
 }
 
-.boards-content a {
+.boards-content > div {
+  position: relative;
+  margin: 5px 8px 5px 0px;
+}
+
+.boards-content div a {
   text-decoration: none;
   color: white;
   font-size: 1.3em;
   font-weight: 900;
-  margin: 5px 5px;
   position: relative;
 }
 
-.boards-content a:hover {
+.boards-content div a:hover {
   opacity: 0.8;
 }
 
-.boards-content div {
+.boards-content div div{
   height: 80px;
   width: 180px;
   border-radius: 4px;
@@ -207,12 +211,30 @@ body {
 
 }
 
+.outline-star {
+  background-color: transparent;
+  border: none;
+  color: gold;
+  font-size: 1.2em;
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  cursor: pointer;
+}
+
+.outline-star:hover {
+  bottom: 6px;
+}
+
 .create-board {
+  height: 80px;
+  width: 180px;
+  border-radius: 4px;
+  padding: 10px 8px;
   background-color: rgb(237, 237, 237);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 5px 5px;
   cursor: pointer;
 }
 
