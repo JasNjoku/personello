@@ -53,7 +53,11 @@ function Boards() {
 
 
     const addListTitle = () => {
-        board.lists.push(listTitle);
+        const newList = {
+            listName: listTitle,
+            listCards: []
+        }
+        board.lists.push(newList);
         const allBoards = JSON.parse(localStorage.getItem('boards'));
 
         allBoards.forEach((element, index) => {
@@ -63,7 +67,7 @@ function Boards() {
         })
 
         localStorage.setItem('boards', `${JSON.stringify(allBoards)}`)
-        setList([...list, listTitle]);
+        setList([...list, newList]);
 
     }
 
@@ -117,7 +121,7 @@ function Boards() {
                         <div className="board__items" onDragOver={dragOver}>
                             
                             {list.map((list, index) => 
-                                <List key={index} name={list} id={index}/>
+                                <List board={board} key={index} name={list.listName} listId={index}/>
                             )}
                         </div>
                         <div className={`add-list-container`}>
