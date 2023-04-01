@@ -1,7 +1,7 @@
 function Card(props) {
     return (
         <div className="card">
-            <p>{props.cardName}</p>
+            <p>{props.card.name}</p>
         </div>
     )
 }
