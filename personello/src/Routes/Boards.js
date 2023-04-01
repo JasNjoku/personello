@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import List from "../Components/List";
+import CardModal from "../Components/CardModal";
+
 
 function Boards() {
     const { id } = useParams();
@@ -50,9 +52,11 @@ function Boards() {
         })
     }, [id])
 
-
-
     const addListTitle = () => {
+        if(listTitle.length < 3) {
+            return;
+        }
+
         const newList = {
             listName: listTitle,
             listCards: []
@@ -61,21 +65,24 @@ function Boards() {
         const allBoards = JSON.parse(localStorage.getItem('boards'));
 
         allBoards.forEach((element, index) => {
-            if(element.name === board.name) {
+            if (element.name === board.name) {
                 allBoards.splice(index, 1, board)
             }
         })
 
         localStorage.setItem('boards', `${JSON.stringify(allBoards)}`)
         setList([...list, newList]);
+    }
 
+    const deleteList = (i) => {
+    //    setList(list.filter((list, index) => index !== i))
     }
 
     const dragOver = (e) => {
         e.preventDefault();
         const afterElement = getDragAfterElement(e.target, e.clientX)
         const list = document.querySelector('.dragging')
-        if(afterElement === null) {
+        if (afterElement === null) {
             return
         } else {
             e.currentTarget.insertBefore(list, afterElement)
@@ -83,30 +90,27 @@ function Boards() {
     }
 
     const getDragAfterElement = (container, x) => {
-      const draggableElements =   [...container.querySelectorAll('.list:not(.dragging)')]
+        const draggableElements = [...container.querySelectorAll('.list:not(.dragging)')]
 
-      return draggableElements.reduce((closest, child) => {
-        const box = child.getBoundingClientRect();
-        const offset = x - box.left - box.height / 2;
-        if(offset < 0 && offset > closest.offset) {
-            return { offset: offset, element: child }
-        } else {
-            return closest    
-        }
-      }, { offset: Number.NEGATIVE_INFINITY }).element
+        return draggableElements.reduce((closest, child) => {
+            const box = child.getBoundingClientRect();
+            const offset = x - box.left - box.height / 2;
+            if (offset < 0 && offset > closest.offset) {
+                return { offset: offset, element: child }
+            } else {
+                return closest
+            }
+        }, { offset: Number.NEGATIVE_INFINITY }).element
     }
 
     return (
         <div className={`board-container ${board.background}`}>
             <nav className={`homepage-nav ${board.background}`}>
                 <div className="homepage-nav__left">
-                    <h2>Personello</h2>
-                    <button id="create">Create</button>
+                    <Link to={'/'}><h2>Personello</h2></Link>
                 </div>
                 <div className="homepage-nav__right">
-                    <div className="nav-search">
-                        <input placeholder="🔎︎ Search" />
-                    </div>
+                    
                 </div>
             </nav>
             <div className="board-container__content">
@@ -119,21 +123,28 @@ function Boards() {
                     </nav> */}
                     <div className="board-container-board__items">
                         <div className="board__items" onDragOver={dragOver}>
-                            
-                            {list.map((list, index) => 
-                                <List board={board} key={index} name={list.listName} listId={index}/>
+
+                            {list.map((list, index) =>
+                                <List 
+                                    board={board} 
+                                    key={index} 
+                                    name={list.listName} 
+                                    listId={index} 
+                                    deleteFromList={deleteList}
+                                />
                             )}
                         </div>
                         <div className={`add-list-container`}>
-                                <div className={`add-list-container__function`}>
-                                    <input onChange={(e) => { setListTitle(e.target.value) }} placeholder="Enter list title" />
-                                </div>
-                                <button onClick={addListTitle}>Add to list</button>
-                                <button>Cancel</button>
+                            <div className={`add-list-container__function`}>
+                                <input onChange={(e) => { setListTitle(e.target.value) }} placeholder="Enter list title" />
                             </div>
+                            <button onClick={addListTitle}>Add to list</button>
+                            <button>Cancel</button>
+                        </div>
                     </div>
                 </main>
             </div>
+            
         </div>
     )
 }
