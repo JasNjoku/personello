@@ -64,6 +64,11 @@ function Home() {
             PiggyPink: { className: 'piggyPink' },
             CoolBlues: { className: 'coolBlues' },
             Harvey: { className: 'harvey' },
+            GreenBlue: { className: 'greenBlue' },
+            LightOrange: { className: 'lightOrange' },
+            DeepPurple: { className: 'deepPurple' },
+            Atlas: { className: 'atlas' },
+            Shore: { className: 'shore' },
         }];
 
 
@@ -98,6 +103,13 @@ function Home() {
 
     const showModal = () => {
         setCreateModal(true)
+    }
+
+    const closeModal = (e) => {
+        if(e.target.className !== 'create-modal-bg') {
+            return;
+        }
+        setCreateModal(false)   
     }
 
 
@@ -149,20 +161,16 @@ function Home() {
             {redirect ? <Redirect to={`/boards/${boardName}`}></Redirect> : null}
             <nav className="homepage-nav">
                 <div className="homepage-nav__left">
-                    <h2>Personello</h2>
-                    <button id="create" onClick={createBoard}>Create</button>
+                    <Link to={'/'}><h2>Personello</h2></Link>
                 </div>
                 <div className="homepage-nav__right">
-                    <div className="nav-search">
-                        <input placeholder="🔎︎ Search" />
-                    </div>
+                    <button id="create" onClick={showModal}>Create</button>
                 </div>
             </nav>
             <main className="homepage-body">
                 <div className="homepage-body__side">
                     <div className="side-content">
                         <Link to={'/'}>Boards</Link>
-                        <Link to={'/'}>About</Link>
                     </div>
                 </div>
                 <div className="homepage-body__content">
@@ -170,7 +178,7 @@ function Home() {
                         favourites.length > 0 ? <div className="starred-boards">
                             <h3>Starred boards</h3>
                             <div className="boards-content">
-                                {favourites.map((board) => <IndividualBoard add={addToFavourites} key={board.name} board={board} rerender={rerender}/>)}
+                                {favourites.map((board) => <IndividualBoard add={addToFavourites} key={board.name} board={board} rerender={rerender} />)}
                             </div>
                         </div> : null
                     }
@@ -178,43 +186,48 @@ function Home() {
                     <div className="recent-boards">
                         <h3>Recently viewed</h3>
                         <div className="boards-content">
-                            {recents.map((board) => <IndividualBoard add={addToFavourites} key={board.name} board={board} rerender={rerender}/>)}
+                            {recents.map((board) => <IndividualBoard add={addToFavourites} key={board.name} board={board} rerender={rerender} />)}
                         </div>
                     </div>
                     <div className="boards">
                         <h3>Your boards</h3>
                         <div className="boards-content">
-                            {boards.map((board) => <IndividualBoard add={addToFavourites} key={board.name} board={board} rerender={rerender}/>)}
+                            {boards.map((board) => <IndividualBoard add={addToFavourites} key={board.name} board={board} rerender={rerender} />)}
                             <div className="create-board" onClick={showModal}>
                                 Create new board
                             </div>
                         </div>
                     </div>
                 </div>
-                {!createModal ? null : <div className="create-modal">
-                    <header>Create board </header>
-                    <div className={`preview ${boardBackground}`}>
+                {!createModal ? null :
 
-                    </div>
-                    <div className="backgrounds">
-                        Background
-                        <div className="backgrounds-colours">
-                            {Object.keys(gradients[0]).map((key) =>
-                                <div key={gradients[0][key].className} className={gradients[0][key].className} onClick={setBoardColor}>
+                    <div className="create-modal-bg" onClick={closeModal}>
+                        <div className="create-modal">
+                            <header>Create board </header>
+                            <div className={`preview ${boardBackground}`}>
 
+                            </div>
+                            <div className="backgrounds">
+                                Background
+                                <div className="backgrounds-colours">
+                                    {Object.keys(gradients[0]).map((key) =>
+                                        <div key={gradients[0][key].className} className={gradients[0][key].className} onClick={setBoardColor}>
+
+                                        </div>
+                                    )}
                                 </div>
-                            )}
+                            </div>
+                            <div className="board-title__input">
+                                <div>Board Title<span style={{ color: 'red' }}>*</span></div>
+                                <input onChange={setBoardTitle} />
+                                <div>👋Board title is required</div>
+                            </div>
+                            <div className="board-submit">
+                                <button disabled={!canCreate} onClick={createBoard}>Create Board</button>
+                            </div>
                         </div>
                     </div>
-                    <div className="board-title__input">
-                        <div>Board Title<span style={{ color: 'red' }}>*</span></div>
-                        <input onChange={setBoardTitle} />
-                        <div>👋Board title is required</div>
-                    </div>
-                    <div className="board-submit">
-                        <button disabled={!canCreate} onClick={createBoard}>Create Board</button>
-                    </div>
-                </div>}
+                }
             </main>
         </div>
     )
