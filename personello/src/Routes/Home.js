@@ -60,11 +60,11 @@ function Home() {
 
     const gradients = [
         {
-            GradeGrey: { className: 'gradeGrey' },
-            PiggyPink: { className: 'piggyPink' },
             CoolBlues: { className: 'coolBlues' },
             Harvey: { className: 'harvey' },
             GreenBlue: { className: 'greenBlue' },
+            GradeGrey: { className: 'gradeGrey' },
+            PiggyPink: { className: 'piggyPink' },
             LightOrange: { className: 'lightOrange' },
             DeepPurple: { className: 'deepPurple' },
             Atlas: { className: 'atlas' },
@@ -76,29 +76,15 @@ function Home() {
         setBoardBackground(e.target.className);
     }
 
-    const boardExists = (arr, name) => {
-        if (arr.find((board) => { return board.name.toLowerCase() === name.toLowerCase() })) {
-            return true
-        }
-    }
-
     const setBoardTitle = (e) => {
         const { value } = e.target;
-        if (value.length < 3) {
+        if (value.length < 1) {
             setCanCreate(false)
             return;
-        } else {
-            if (boards.length >= 1) {
-                if (boardExists(boards, value)) {
-                    setCanCreate(false)
-                    return;
-                }
-            }
-        }
+        } 
 
         setBoardName(value);
         setCanCreate(true);
-
     }
 
     const showModal = () => {
