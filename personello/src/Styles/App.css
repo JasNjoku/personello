@@ -453,9 +453,37 @@ body {
   width: 280px;
   background-color: white;
   display: inline-block;
-  height: 82px;
+  height: 100px;
   margin: 10px;
   /* box shadow later */
+}
+
+.add-list-container input {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 1px;
+  padding: 10px;
+  font-size: 1.1em;
+  background-color: #ebecf0;
+}
+
+.add-list-container input:focus {
+  outline: none;
+}
+
+.add-list-container button {
+  border: none;
+  background-color: rgb(61, 177, 215);
+  cursor: pointer;
+  border-radius: 3px;
+  padding: 6px 10px;
+  margin: 5px;
+  color: white;
+}
+
+.add-list-container button:hover {
+  opacity: 0.8;
 }
 
 .add-list-container>div {
