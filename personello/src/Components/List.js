@@ -15,16 +15,9 @@ function List(props) {
     const [cardName, setCardName] = useState('');
     const [currentCard, setCurrentCard] = useState({});
 
-    const dragStart = (e) => {
-        e.target.classList.add('dragging')
-    }
-
-    const dragEnd = (e) => {
-        e.target.classList.remove('dragging')
-    }
 
     const showHidden = (e) => {
-        e.currentTarget.parentElement.querySelector('div.add-card-functions').style.display = 'flex'  
+        e.currentTarget.parentElement.querySelector('div.add-card-functions').style.display = 'flex'
     }
 
     const closeHidden = (e) => {
@@ -32,10 +25,11 @@ function List(props) {
     }
 
     const createCard = () => {
-        let card = { name: '', description: '', todos: [] }
+        let card = { id: 0, name: '', description: '', todos: [] }
 
-        if (cardName.length >= 3) {
+        if (cardName.length >= 1) {
             card.name = cardName;
+            card.id = board.lists[props.listId].listCards.length + 1
             board.lists[props.listId].listCards.push(card)
             const allBoards = JSON.parse(localStorage.getItem('boards'));
 
@@ -51,16 +45,46 @@ function List(props) {
 
     }
 
+    const addCardDesc = (cardId, description) => {
+        board.lists[props.listId].listCards[cardId - 1].description = description;
+        const allBoards = JSON.parse(localStorage.getItem('boards'));
+        allBoards.forEach((element, index) => {
+            if (element.name === board.name) {
+                allBoards.splice(index, 1, board)
+            }
+        })
+
+        localStorage.setItem('boards', `${JSON.stringify(allBoards)}`)
+    }
+
+
+    const addCardTodo = (cardId, todoItem) => {
+
+        const temp = board.lists[props.listId].listCards[cardId - 1].todos;
+
+        board.lists[props.listId].listCards[cardId - 1].todos.push(todoItem)
+        const allBoards = JSON.parse(localStorage.getItem('boards'));
+        allBoards.forEach((element, index) => {
+            if (element.name === board.name) {
+                allBoards.splice(index, 1, board)
+            }
+        })
+
+        console.log(temp, board.lists[props.listId].listCards[cardId - 1].todos)
+        localStorage.setItem('boards', `${JSON.stringify(allBoards)}`)
+    }
+
+
     const deleteList = () => {
-        // board.lists.forEach((list, index) => {
-        //     if(index === props.listId) {
-        //         props.deleteFromList(index)
-        //     }
-        // })
+        board.lists.forEach((list, index) => {
+            if(index === props.listId) {
+                props.deleteFromList(index)
+            }
+        })
     }
 
     useEffect(() => {
-        if(currentCard.name !== undefined) {
+        if (currentCard.name !== undefined) {
             document.querySelector('.edit-card-modal').style.display = 'flex';
         }
     }, [currentCard])
@@ -76,22 +100,19 @@ function List(props) {
     return (
         <div
             className="list"
-            draggable="true"
             key={props.index}
-            onDragStart={dragStart}
-            onDragEnd={dragEnd}
         >
             <div className="list-head">
                 <p>{props.name}</p>
-                <button title="Delete List" onClick={deleteList}>
+                {/* <button title="Delete List" onClick={deleteList}>
                     <FaTrashAlt />
-                </button>
+                </button> */}
             </div>
-            
+
 
             <div className="list__card-items">
                 <div className={`.add-card-${props.listId}`}>
-                    {cards.map((card, index) => <Card card={card} key={index} handleClick={handleCardClick}/>)}
+                    {cards.map((card, index) => <Card card={card} key={index} handleClick={handleCardClick} />)}
                     <div className="add-card-functions">
                         <input onChange={(e) => { setCardName(e.target.value) }} placeholder="Enter a title for this card..." />
                         <div className="add-card-functions__buttons">
@@ -102,7 +123,14 @@ function List(props) {
                 </div>
                 <button className="show-add-card-functions" onClick={showHidden}><span>+ Add a card</span></button>
             </div>
-            {currentCard.name !== undefined ? <CardModal handleModal={handleModal} card={currentCard}/> : null }
+            {currentCard.name !== undefined ? 
+                <CardModal 
+                    handleModal={handleModal} 
+                    card={currentCard} 
+                    addCardDesc={addCardDesc}
+                    addCardTodo={addCardTodo}
+                    listID={listID}
+                /> : null}
         </div>
     )
 
