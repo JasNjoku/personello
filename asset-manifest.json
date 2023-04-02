@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/personello/static/css/main.75b51197.css",
-    "main.js": "/personello/static/js/main.ccd025fd.js",
+    "main.js": "/personello/static/js/main.2ddfd900.js",
     "static/js/787.a9a0b7f1.chunk.js": "/personello/static/js/787.a9a0b7f1.chunk.js",
     "index.html": "/personello/index.html",
     "main.75b51197.css.map": "/personello/static/css/main.75b51197.css.map",
-    "main.ccd025fd.js.map": "/personello/static/js/main.ccd025fd.js.map",
+    "main.2ddfd900.js.map": "/personello/static/js/main.2ddfd900.js.map",
     "787.a9a0b7f1.chunk.js.map": "/personello/static/js/787.a9a0b7f1.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.75b51197.css",
-    "static/js/main.ccd025fd.js"
+    "static/js/main.2ddfd900.js"
   ]
 }
