@@ -210,7 +210,7 @@ body {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  overflow-y: scroll;
+  overflow-y: auto;
   flex-basis: 70%;
   padding-right: 50px;
   padding-bottom: 50px;
@@ -344,12 +344,13 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.18);
   display: flex;
   flex-direction: column;
+  justify-content: space-around;
 }
 
 .create-modal header {
   text-align: center;
-  padding: 5px 0;
   border-bottom: 0.1px solid lightgrey;
+  justify-self: flex-start;
 }
 
 .preview {
@@ -369,7 +370,7 @@ body {
 
 .backgrounds>div div {
   cursor: pointer;
-  margin: 0px 5px;
+  margin: 5px 5px;
   width: 35px;
   height: 28px;
   border-radius: 3px;
@@ -384,16 +385,40 @@ body {
   max-width: 100vw;
 }
 
-/*
-.board-container__content,
-.board-container__board {
-  height: 100%;
+.board-title__input {
+  display: flex;
+  flex-direction: column;
 }
 
-.board-container__board {
-  overflow-x: scroll;
+.board-title__input input {
+  width: 80%;
+  align-self: center;
+}
 
-} */
+.board-title__input > div:nth-child(3) {
+  align-self: center;
+}
+
+.board-submit {
+  align-self: center;
+}
+
+.board-submit > button {
+  padding: 8px 12px;
+  background-color: rgb(36, 161, 224);
+  border: none;
+  cursor: pointer;
+  border-radius: 2px;
+  color: white;
+}
+
+.board-submit > button:disabled {
+  cursor: not-allowed;
+}
+
+.board-submit > button:hover {
+  background-color: rgb(22, 103, 144);
+}
 
 .board-container-board__items {
   display: flex;
@@ -417,6 +442,8 @@ body {
   border-radius: 10px;
   background-color: #949494;
 }
+
+
 
 
 
@@ -450,6 +477,24 @@ body {
   flex: 1 0 auto;
   height: fit-content;
   padding: 10px 5px;
+  max-height: 535px;
+  overflow-y: auto;
+}
+
+.list::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background-color: transparent;
+}
+
+.list::-webkit-scrollbar {
+  border-radius: 10px;
+  width: 10px;
+  background-color: #F5F5F5;
+}
+
+.list::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #949494;
 }
 
 .list-head>p {
@@ -552,7 +597,7 @@ body {
   color: rgb(99, 99, 99);
   font-size: 1.2em;
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
 }
 
 
@@ -603,19 +648,182 @@ body {
   backdrop-filter: blur(0px);
   -webkit-backdrop-filter: blur(0px);
   border: 1px solid rgba(255, 255, 255, 1);
-  
+  display: flex;
+  flex-direction: column;
+  overflow-y:auto;
 }
 
-/* #createCardModal {
-  display: none;
-  position: fixed;
-  z-index: 9999;
+.edit-card-modal__box > div {
+  margin: 20px;
+}
+
+.card-modal__title {
+  color: #2c3e50;
+}
+
+.card-modal__description h3{
+  color: #2c3e50;
+  margin-right: 10px;
+}
+
+.card-modal__description button {
+  padding: 5px 12px;
+  background-color: rgb(226, 226, 226);
+  border: none;
+  cursor: pointer;
+  margin-right: 5px;
+  border-radius: 2px;
+}
+
+.description-content > div > div > button:nth-child(1) {
+  background-color: rgb(73, 143, 186);
+  color: white;
+}
+
+.description-content > div > div > button:nth-child(1):hover {
+  background-color: rgb(35, 75, 99);
+}
+
+.description-content > div > div > button:nth-child(2) {
   background-color: white;
-  top: 0;
-  right: 0;
-  left: 0;
-  bottom: 0;
-  margin: auto;
-  height: 600px;
-  width: 600px;
+}
+
+.description-content > div > div > button:nth-child(2):hover {
+  background-color: lightgray;
+}
+
+.card-modal__description button:hover {
+  background-color: rgb(173, 173, 173);
+}
+
+.description-header {
+  display: flex;
+  margin-bottom: 8px;
+}
+
+.card-modal__description p {
+  font-size: 1.1em;
+  font-weight: 400;
+}
+
+.edit-description-content {
+  display: none;
+}
+
+.description-content textarea{
+  width: 80%;
+  height: 150px;
+  resize: none;
+  font-size: 1.3em;
+}
+
+
+.card-modal__todo h3{
+  color: #2c3e50;
+  margin-right: 10px;
+}
+
+.todo-item {
+  display: flex;
+  align-items: center;
+}
+
+.todo-item input {
+  margin: 10px;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.todo-item p {
+  font-weight: 400;
+}
+
+.todo-percentage {
+  margin-left: 8px;
+  display: flex;
+  align-items: center;
+}
+
+.todo-percentage p {
+  margin-right: 20px;
+}
+
+
+.todo-percentage__bar {
+  background-color: rgb(213, 213, 213);
+  flex-basis: 80%;
+  height: 15px;
+  border-radius: 28px;
+}
+
+.indicator {
+  background-color: rgb(100, 255, 100);
+  height: 15px;
+  border-radius: 28px;
+  transition: 0.2s;
+}
+
+.create-new-todo {
+  display: none;
+}
+
+.open-create-new-todo {
+  padding: 8px 12px;
+  background-color: rgb(226, 226, 226);
+  border: none;
+  cursor: pointer;
+  margin-right: 5px;
+  border-radius: 1px;
+  margin-left: 10px;
+}
+
+.open-create-new-todo:hover {
+  background-color: darkgray;
+}
+
+.create-new-todo {
+  margin-left: 10px;
+}
+
+.create-new-todo textarea {
+  resize: vertical;
+  width: 70%;
+  min-height: 100px;
+  border: 2px solid lightblue;
+  border-radius: 2px;
+}
+
+textarea:focus {
+  outline: none;
+}
+
+.create-new-todo__buttons button {
+  padding: 5px 12px;
+  background-color: rgb(226, 226, 226);
+  border: none;
+  cursor: pointer;
+  margin-right: 5px;
+  border-radius: 2px;
+}
+
+.create-new-todo__buttons > button:nth-child(1) {
+  background-color: rgb(73, 143, 186);
+  color: white;
+}
+
+.create-new-todo__buttons> button:nth-child(1):hover {
+  background-color: rgb(35, 75, 99);
+}
+
+.create-new-todo__buttons > button:nth-child(2) {
+  background-color: white;
+}
+
+.create-new-todo__buttons > button:nth-child(2):hover {
+  background-color: lightgray;
+}
+
+/* .todo-item ISCOMPLETE {
+  text-decoration: line-through;
 } */

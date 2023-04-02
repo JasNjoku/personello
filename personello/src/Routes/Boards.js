@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import List from "../Components/List";
-import CardModal from "../Components/CardModal";
 
 
 function Boards() {
@@ -54,6 +53,7 @@ function Boards() {
 
     const addListTitle = () => {
         if(listTitle.length < 3) {
+            alert('List title should be longer than 3 characters')
             return;
         }
 
@@ -75,33 +75,16 @@ function Boards() {
     }
 
     const deleteList = (i) => {
-    //    setList(list.filter((list, index) => index !== i))
-    }
+       
+        const allBoards = JSON.parse(localStorage.getItem('boards'));
 
-    const dragOver = (e) => {
-        e.preventDefault();
-        const afterElement = getDragAfterElement(e.target, e.clientX)
-        const list = document.querySelector('.dragging')
-        if (afterElement === null) {
-            return
-        } else {
-            e.currentTarget.insertBefore(list, afterElement)
-        }
-    }
-
-    const getDragAfterElement = (container, x) => {
-        const draggableElements = [...container.querySelectorAll('.list:not(.dragging)')]
-
-        return draggableElements.reduce((closest, child) => {
-            const box = child.getBoundingClientRect();
-            const offset = x - box.left - box.height / 2;
-            if (offset < 0 && offset > closest.offset) {
-                return { offset: offset, element: child }
-            } else {
-                return closest
+        allBoards.forEach((element, index) => {
+            if (element.name === board.name) {
+                
             }
-        }, { offset: Number.NEGATIVE_INFINITY }).element
+        })
     }
+
 
     return (
         <div className={`board-container ${board.background}`}>
@@ -122,7 +105,7 @@ function Boards() {
                         INNER NAV
                     </nav> */}
                     <div className="board-container-board__items">
-                        <div className="board__items" onDragOver={dragOver}>
+                        <div className="board__items">
 
                             {list.map((list, index) =>
                                 <List 
