@@ -1,12 +1,13 @@
 import './Styles/App.css';
 import {
   createBrowserRouter,
+  createHashRouter,
   RouterProvider
 } from 'react-router-dom'
 import Home from './Routes/Home';
 import Boards from './Routes/Boards'
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: '/',
     element: (
