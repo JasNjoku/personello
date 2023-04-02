@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/personello/static/css/main.75b51197.css",
+    "main.js": "/personello/static/js/main.56d31302.js",
+    "static/js/787.a9a0b7f1.chunk.js": "/personello/static/js/787.a9a0b7f1.chunk.js",
+    "index.html": "/personello/index.html",
+    "main.75b51197.css.map": "/personello/static/css/main.75b51197.css.map",
+    "main.56d31302.js.map": "/personello/static/js/main.56d31302.js.map",
+    "787.a9a0b7f1.chunk.js.map": "/personello/static/js/787.a9a0b7f1.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.75b51197.css",
+    "static/js/main.56d31302.js"
+  ]
+}
