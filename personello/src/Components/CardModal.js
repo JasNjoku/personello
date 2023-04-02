@@ -58,10 +58,11 @@ function CardModal(props) {
         const newTodo = { checked: false, name: todoTitle };
 
         props.addCardTodo(props.card.id, newTodo)
+        //the todo you added will still be false when you add it.
         setTodos(prevState => {return([...prevState, newTodo])})
 
         //so sorry
-        window.location.reload();
+        // window.location.reload();
 
 
         //duplicatiing because of an error
@@ -90,16 +91,17 @@ function CardModal(props) {
     }
 
     const checkItem = (todoID, shouldCheck) => {
-        board.lists[props.listID].listCards[props.card.id - 1].todos[todoID].checked = shouldCheck;
+       const b =  JSON.parse(localStorage.getItem('boards')).find((x) => x.name === id)
+       b.lists[props.listID].listCards[props.card.id - 1].todos[todoID].checked= shouldCheck
         const allBoards = JSON.parse(localStorage.getItem('boards'));
         allBoards.forEach((element, index) => {
             if (element.name === board.name) {
-                allBoards.splice(index, 1, board)
+                allBoards.splice(index, 1, b)
             }
         })
 
         localStorage.setItem('boards', `${JSON.stringify(allBoards)}`)
-        setTodos(board.lists[props.listID].listCards[props.card.id - 1].todos)
+        setTodos(JSON.parse(localStorage.getItem('boards')).find((x) => x.name === id).lists[props.listID].listCards[props.card.id - 1].todos)
 
         let p = 0;
 
@@ -115,6 +117,7 @@ function CardModal(props) {
         }
 
         setPercentage(Math.trunc((p / todos.length) * 100))
+        window.location.reload();
     }
 
     const close = (e) => {
