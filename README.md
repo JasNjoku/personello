@@ -1,3 +1,2 @@
-# personello
-A trello clone personal use
-first commit
+# Personello
+A trello clone for personal use
