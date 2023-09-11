@@ -1,13 +1,12 @@
-import './Styles/App.css';
 import {
   createBrowserRouter,
-  createHashRouter,
   RouterProvider
-} from 'react-router-dom'
-import Home from './Routes/Home';
-import Boards from './Routes/Boards'
+} from "react-router-dom"
 
-const router = createHashRouter([
+import Home from "./Routes/Home"
+import BoardComponent from "./Routes/Boards"
+//Router for the two pages, Home and Boards
+const router = createBrowserRouter([
   {
     path: '/',
     element: (
@@ -15,19 +14,19 @@ const router = createHashRouter([
     )
   },
   {
-    path: 'boards/:id',
+    path: 'board/:id',
     element: (
-      <Boards />
+      <BoardComponent />
     )
   }
 ])
 
-function App() {
+const App = () => {
   return (
     <div className="App">
       <RouterProvider router={router} />
     </div>
-  );
+  )
 }
 
 export default App;

@@ -1,0 +1,28 @@
+/*
+
+    boards: [
+        {
+            name: String
+            background: String
+            lists: [{
+                listName: String
+                listCards: [{
+                    id: int
+                    name: String
+                    description: String
+                    todos: [
+                        {
+                            completed: boolean
+                            name: String
+                        }
+                    ]
+                }]
+            }]
+            favourited: boolean
+
+        }
+    ]
+
+    Components: Board -> Lists -> ListCards -> Todos
+
+*/
